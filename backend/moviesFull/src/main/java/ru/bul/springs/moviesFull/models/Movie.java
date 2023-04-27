@@ -115,6 +115,14 @@ public class Movie {
         this.backdropList = backdropList;
     }
 
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReviewList(List<Review> reviewList) {
+        this.reviewList = reviewList;
+    }
+
     @Override
     public String toString() {
         return "Movie{" +
