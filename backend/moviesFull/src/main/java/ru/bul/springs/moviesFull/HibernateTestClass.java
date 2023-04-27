@@ -33,6 +33,7 @@ public class HibernateTestClass {
             for (var i:
                  movies) {
                 System.out.println();
+                System.out.println();
                 System.out.println(i);
                 System.out.println();
             }
