@@ -13,7 +13,7 @@ public class Movie {
     @Id
     @Column(name = "imdbid")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int imdbid;
+    private int id;
 
     @Column(name = "title")
     private String title;
@@ -47,9 +47,8 @@ public class Movie {
     }
 
 
-
-    public Movie(int imdbid, String title, LocalDate releasedate, String trailerlink, String poster, List<Genre> genreList, List<Backdrop> backdropList, List<Review> reviewList) {
-        this.imdbid = imdbid;
+    public Movie(int id, String title, LocalDate releasedate, String trailerlink, String poster, List<Genre> genreList, List<Backdrop> backdropList, List<Review> reviewList) {
+        this.id = id;
         this.title = title;
         this.releasedate = releasedate;
         this.trailerlink = trailerlink;
@@ -59,12 +58,12 @@ public class Movie {
         this.reviewList = reviewList;
     }
 
-    public int getImdbid() {
-        return imdbid;
+    public int getId() {
+        return id;
     }
 
-    public void setImdbid(int imdbid) {
-        this.imdbid = imdbid;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -126,7 +125,7 @@ public class Movie {
     @Override
     public String toString() {
         return "Movie{" +
-                "imdbid=" + imdbid +
+                "id=" + id +
                 ", title='" + title + '\'' +
                 ", releasedate=" + releasedate +
                 ", trailerlink='" + trailerlink + '\'' +

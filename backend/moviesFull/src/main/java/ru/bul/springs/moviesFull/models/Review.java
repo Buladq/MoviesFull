@@ -25,7 +25,7 @@ public class Review {
     private LocalDate updated;
 
     @ManyToOne
-    @JoinColumn(name = "movieid",referencedColumnName = "imdbid")
+    @JoinColumn(name = "movie_imdbid",referencedColumnName = "imdbid")
     private Movie movieid;
 
     public Review() {

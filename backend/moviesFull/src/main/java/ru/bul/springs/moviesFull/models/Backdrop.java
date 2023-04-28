@@ -14,7 +14,7 @@ public class Backdrop {
     private String link;
 
     @ManyToOne
-    @JoinColumn(name = "movieid",referencedColumnName = "imdbid")
+    @JoinColumn(name = "movie_imdbid",referencedColumnName = "imdbid")
     private Movie movieid;
 
     public Backdrop() {
