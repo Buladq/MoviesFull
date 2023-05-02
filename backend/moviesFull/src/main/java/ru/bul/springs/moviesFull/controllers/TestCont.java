@@ -2,16 +2,11 @@ package ru.bul.springs.moviesFull.controllers;
 
 
 import org.modelmapper.ModelMapper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import ru.bul.springs.moviesFull.DTO.BackdropDTO;
-import ru.bul.springs.moviesFull.DTO.GenreDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import ru.bul.springs.moviesFull.DTO.MovieDTO;
-import ru.bul.springs.moviesFull.models.Backdrop;
-import ru.bul.springs.moviesFull.models.Genre;
 import ru.bul.springs.moviesFull.models.Movie;
-import ru.bul.springs.moviesFull.service.BackdropService;
 import ru.bul.springs.moviesFull.service.MovieService;
 
 import java.util.List;
@@ -24,19 +19,27 @@ public class TestCont {
     private final MovieService movieService;
     private final ModelMapper modelMapper;
 
-    private final BackdropService backdropService;
-
-    public TestCont(MovieService movieService, ModelMapper modelMapper, BackdropService backdropService) {
+    public TestCont(MovieService movieService, ModelMapper modelMapper) {
         this.movieService = movieService;
         this.modelMapper = modelMapper;
-        this.backdropService = backdropService;
     }
-
 
     @GetMapping("/movies")
     public List<MovieDTO> allMovies(){
-
         return movieService.getAll().stream().map(this::convertToMovieDTO).collect(Collectors.toList());
+    }
+
+    @GetMapping("/movies/search")
+    public List<MovieDTO> allMoviesStart(@RequestParam(value = "text",required = false)String text){
+        return movieService.findByStartWith(text).stream().map(this::convertToMovieDTO).collect(Collectors.toList());
+    }
+
+    @GetMapping("/movie/{id}")
+    public MovieDTO allMovies(@PathVariable("id")int id){
+        if(movieService.getMovieById(id)==null){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "HTTP Status will be NOT FOUND (CODE 404)\n");
+        }
+        return convertToMovieDTO(movieService.getMovieById(id));
     }
 
 

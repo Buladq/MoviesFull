@@ -22,4 +22,12 @@ public class MovieService {
     public List<Movie> getAll() {
        return movieRepository.findAll();
     }
+
+    public Movie getMovieById(int id){
+        return movieRepository.findById(id).orElse(null);
+    }
+
+    public List<Movie> findByStartWith(String text){
+        return movieRepository.findByTitleStartingWith(text);
+    }
 }
