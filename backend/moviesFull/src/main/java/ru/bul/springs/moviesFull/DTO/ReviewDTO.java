@@ -4,25 +4,24 @@ import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 public class ReviewDTO {
 
+    @NotEmpty
     private String body;
 
-    private LocalDate created;
-
-    private LocalDate updated;
 
     public ReviewDTO() {
     }
 
-    public ReviewDTO(String body, LocalDate created, LocalDate updated) {
+    public ReviewDTO(String body) {
         this.body = body;
-        this.created = created;
-        this.updated = updated;
+
+
     }
 
     public String getBody() {
@@ -33,19 +32,7 @@ public class ReviewDTO {
         this.body = body;
     }
 
-    public LocalDate getCreated() {
-        return created;
-    }
 
-    public void setCreated(LocalDate created) {
-        this.created = created;
-    }
 
-    public LocalDate getUpdated() {
-        return updated;
-    }
 
-    public void setUpdated(LocalDate updated) {
-        this.updated = updated;
-    }
 }

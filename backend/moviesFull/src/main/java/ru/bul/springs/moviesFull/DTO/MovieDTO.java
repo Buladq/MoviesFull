@@ -1,6 +1,8 @@
 package ru.bul.springs.moviesFull.DTO;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.bul.springs.moviesFull.models.Backdrop;
 import ru.bul.springs.moviesFull.models.Genre;
@@ -11,10 +13,12 @@ import java.util.List;
 
 public class MovieDTO {
 
+    @NotEmpty
     private String title;
 
     private LocalDate releasedate;
 
+    @NotEmpty
     private String trailerlink;
 
     private String poster;
