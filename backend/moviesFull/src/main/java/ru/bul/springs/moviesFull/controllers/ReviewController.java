@@ -33,27 +33,39 @@ public class ReviewController {
         this.modelMapper = modelMapper;
     }
 
+//    @PostMapping("/createReviewTest")
+//    public ResponseEntity<HttpStatus> createReview(@RequestBody Map< @Valid ReviewDTO, String> json,
+//                                                   BindingResult bindingResult){
+//        System.out.println(json);
+//        System.out.println(bindingResult.hasErrors());
+//
+//
+//        if(bindingResult.hasErrors()){
+//            StringBuilder erMsg=new StringBuilder();
+//            List<FieldError> errorList=bindingResult.getFieldErrors();
+//
+//            for (var i:
+//                 errorList) {
+//                erMsg.append(i.getField());
+//                erMsg.append("-").append(i.getDefaultMessage());
+//                erMsg.append(";");
+//
+//            }
+//
+//            throw new ReviewNotCreated(erMsg.toString());
+//        }
+//        reviewService.createReview(convertToReview((ReviewDTO) json.keySet().toArray()[0]), Integer.parseInt((String) json.values().toArray()[0]));
+//
+//        return ResponseEntity.ok(HttpStatus.OK);
+//
+//
+//    }
+
+
     @PostMapping("/createReviewTest")
     public ResponseEntity<HttpStatus> createReview(@RequestBody Map< @Valid ReviewDTO, String> json,
                                                    BindingResult bindingResult){
-        System.out.println(json);
-        System.out.println(bindingResult.hasErrors());
-
-
-        if(bindingResult.hasErrors()){
-            StringBuilder erMsg=new StringBuilder();
-            List<FieldError> errorList=bindingResult.getFieldErrors();
-
-            for (var i:
-                 errorList) {
-                erMsg.append(i.getField());
-                erMsg.append("-").append(i.getDefaultMessage());
-                erMsg.append(";");
-                
-            }
-
-            throw new ReviewNotCreated(erMsg.toString());
-        }
+        
         reviewService.createReview(convertToReview((ReviewDTO) json.keySet().toArray()[0]), Integer.parseInt((String) json.values().toArray()[0]));
 
         return ResponseEntity.ok(HttpStatus.OK);
