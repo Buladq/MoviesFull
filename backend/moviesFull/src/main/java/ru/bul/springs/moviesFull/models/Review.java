@@ -1,6 +1,8 @@
 package ru.bul.springs.moviesFull.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ public class Review {
     private int id;
 
     @Column(name = "body")
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2,max = 30,message = "size from 2 to 30")
     private String body;
 
     @Column(name = "created")

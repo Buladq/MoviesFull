@@ -5,13 +5,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
 public class ReviewDTO {
 
-    @NotEmpty
+    @NotEmpty(message = "Поле не может быть пустым")
+    @Size(min = 2,max = 30,message = "size from 2 to 30")
     private String body;
 
 

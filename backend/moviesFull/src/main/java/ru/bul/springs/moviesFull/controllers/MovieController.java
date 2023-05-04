@@ -1,16 +1,18 @@
 package ru.bul.springs.moviesFull.controllers;
 
 
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.moviesFull.DTO.MovieDTO;
+import ru.bul.springs.moviesFull.DTO.ReviewDTO;
 import ru.bul.springs.moviesFull.models.Movie;
+import ru.bul.springs.moviesFull.models.Review;
 import ru.bul.springs.moviesFull.service.MovieService;
+import ru.bul.springs.moviesFull.service.ReviewService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,6 +24,7 @@ public class MovieController {
     private final MovieService movieService;
 
     private final ModelMapper modelMapper;
+
 
     public MovieController(MovieService movieService, ModelMapper modelMapper) {
         this.movieService = movieService;
@@ -41,6 +44,10 @@ public class MovieController {
     }
 
 
+
+
+
+
     public MovieDTO convertToMovieDTO(Movie movie){
         return modelMapper.map(movie,MovieDTO.class);
     }
@@ -48,4 +55,6 @@ public class MovieController {
     public Movie convertToMovie(MovieDTO movieDTO){
         return modelMapper.map(movieDTO,Movie.class);
     }
+
+
 }
