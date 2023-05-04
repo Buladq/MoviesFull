@@ -1,12 +1,14 @@
 package ru.bul.springs.moviesFull.controllers;
 
 
+import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.moviesFull.DTO.ReviewDTO;
 import ru.bul.springs.moviesFull.models.Review;
@@ -16,8 +18,10 @@ import ru.bul.springs.moviesFull.util.ReviewNotCreated;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
+@Validated
 @RequestMapping("/api/review")
 public class ReviewController {
     private final ReviewService reviewService;
@@ -30,12 +34,16 @@ public class ReviewController {
     }
 
     @PostMapping("/createReviewTest")
-    public ResponseEntity<HttpStatus> createReview(@RequestBody @Valid Map<String, String> json,
+    public ResponseEntity<HttpStatus> createReview(@RequestBody Map< @Valid ReviewDTO, String> json,
                                                    BindingResult bindingResult){
         System.out.println(json);
+        System.out.println(bindingResult.hasErrors());
+
+
         if(bindingResult.hasErrors()){
             StringBuilder erMsg=new StringBuilder();
             List<FieldError> errorList=bindingResult.getFieldErrors();
+
             for (var i:
                  errorList) {
                 erMsg.append(i.getField());
@@ -46,7 +54,7 @@ public class ReviewController {
 
             throw new ReviewNotCreated(erMsg.toString());
         }
-        reviewService.createReview(convertToReview(json.get("reviewDTO")), Integer.parseInt(json.get("idMovie")));
+        reviewService.createReview(convertToReview((ReviewDTO) json.keySet().toArray()[0]), Integer.parseInt((String) json.values().toArray()[0]));
 
         return ResponseEntity.ok(HttpStatus.OK);
 
@@ -55,7 +63,7 @@ public class ReviewController {
 
 
     @ExceptionHandler
-    private ResponseEntity<ReviewErrorResponse> handleException(ReviewNotCreated reviewNotCreated){
+    private ResponseEntity<ReviewErrorResponse> handleException(ReviewNotCreated reviewNotCreated){ //исключение для создания review
         ReviewErrorResponse reviewErrorResponse=new ReviewErrorResponse(
                 reviewNotCreated.getMessage(),
                 System.currentTimeMillis()
@@ -63,10 +71,21 @@ public class ReviewController {
         return new ResponseEntity<>(reviewErrorResponse,HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class) //исключения для любой ошибки чтобы выводилась красиво
+    public ResponseEntity<ReviewErrorResponse> handleValidationException(ConstraintViolationException ex) {
+        String message = ex.getConstraintViolations().stream()
+                .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+                .collect(Collectors.joining("; "));
+
+        ReviewErrorResponse reviewErrorResponse=new ReviewErrorResponse(
+                message,
+                System.currentTimeMillis()
+        );
+          return new ResponseEntity<>(reviewErrorResponse,HttpStatus.BAD_REQUEST);
+    }
 
 
-    public Review convertToReview(String reviewDTObody){
-        ReviewDTO reviewDTO1=new ReviewDTO(reviewDTObody);
-        return modelMapper.map(reviewDTO1, Review.class);
+    public Review convertToReview(ReviewDTO reviewDTO){
+        return modelMapper.map(reviewDTO, Review.class);
     }
 }
