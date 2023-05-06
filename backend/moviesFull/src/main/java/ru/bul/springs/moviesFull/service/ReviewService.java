@@ -26,10 +26,14 @@ public class ReviewService {
     @Transactional
     public void createReview(Review review,int id){
         review.setMovieid(movieService.getMovieById(id));
-
-
+        moreDetailsReview(review);
         reviewRepository.save(review);
 
+    }
+
+    public void moreDetailsReview(Review review){
+        review.setCreated(LocalDate.now());
+        review.setUpdated(LocalDate.now());
     }
 
 

@@ -83,7 +83,7 @@ public class ReviewController {
         return new ResponseEntity<>(reviewErrorResponse,HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(ConstraintViolationException.class) //исключения для любой ошибки чтобы выводилась красиво
+    @ExceptionHandler(ConstraintViolationException.class) //исключения другое
     public ResponseEntity<ReviewErrorResponse> handleValidationException(ConstraintViolationException ex) {
         String message = ex.getConstraintViolations().stream()
                 .map(v -> v.getPropertyPath() + ": " + v.getMessage())
