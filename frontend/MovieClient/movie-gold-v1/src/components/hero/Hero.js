@@ -13,7 +13,7 @@ const Hero = ({movies}) => {
                     return(
                         <Paper>
                             <div className='movie-card-container'>
-                            <div className="movie-card" style={{"--img": `url(${movie.backdropList[0].link})`}}>
+                            <div className="movie-card" style={{"--img": `url(${movie.backdropList[2].link})`}}>
                                     <div className='movie-detail'>
                                         <div className='movie-poster'>
                                             <img src={movie.poster} alt=''></img>
@@ -24,8 +24,8 @@ const Hero = ({movies}) => {
                                         </div>
 
                                         <div className='movie-title'>
-                                     
-                                        <a href={movie.trailerlink}>
+                                        
+                                        <a href={movie.trailerlink} target="_blank">
                                         <div className="play-button-icon-container">
                                                 <FontAwesomeIcon className="play-button-icon"
                                                     icon = {faCirclePlay}
