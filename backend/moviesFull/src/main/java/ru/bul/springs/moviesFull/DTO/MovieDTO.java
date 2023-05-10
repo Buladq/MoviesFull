@@ -13,6 +13,8 @@ import java.util.List;
 
 public class MovieDTO {
 
+    private int id;
+
     @NotEmpty
     private String title;
 
@@ -32,7 +34,8 @@ public class MovieDTO {
     public MovieDTO() {
     }
 
-    public MovieDTO(String title, LocalDate releasedate, String trailerlink, String poster, List<GenreDTO> genreList, List<BackdropDTO> backdropList, List<ReviewDTO> reviewList) {
+    public MovieDTO(int id, String title, LocalDate releasedate, String trailerlink, String poster, List<GenreDTO> genreList, List<BackdropDTO> backdropList, List<ReviewDTO> reviewList) {
+        this.id = id;
         this.title = title;
         this.releasedate = releasedate;
         this.trailerlink = trailerlink;
@@ -40,6 +43,14 @@ public class MovieDTO {
         this.genreList = genreList;
         this.backdropList = backdropList;
         this.reviewList = reviewList;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {

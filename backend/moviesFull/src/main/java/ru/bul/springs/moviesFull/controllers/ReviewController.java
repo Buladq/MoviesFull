@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
+@CrossOrigin("http://localhost:3000")
 @Validated
 @RequestMapping("/api/review")
 public class ReviewController {
