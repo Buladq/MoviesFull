@@ -1,6 +1,7 @@
 package ru.bul.springs.moviesFull.controllers;
 
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 @CrossOrigin("http://localhost:3000")
 @Validated
 @RequestMapping("/api/review")
+@Tag(name ="Отзывы" ,description ="Работа со всеми отзывами" )
 public class ReviewController {
     private final ReviewService reviewService;
 

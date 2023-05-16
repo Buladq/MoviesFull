@@ -1,6 +1,9 @@
 package ru.bul.springs.moviesFull.controllers;
 
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @CrossOrigin("http://localhost:3000")
 @RequestMapping("/api/movies")
+@Tag(name = "Фильмы",description ="Операции со всеми фильмами" )
 public class MovieController {
 
     private final MovieService movieService;
@@ -34,12 +38,14 @@ public class MovieController {
 
 
     @GetMapping
+    @Operation(summary = "Получение всех фильмов")
     public ResponseEntity<List<MovieDTO>> getAllMovies(){
         return new ResponseEntity<List<MovieDTO>>(movieService.getAll().stream().map(this::convertToMovieDTO).collect(Collectors.toList()),
         HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "получение информации о фильме по id")
     public ResponseEntity<MovieDTO> getOneMovie(@PathVariable("id") int id){
         return new ResponseEntity<MovieDTO>(convertToMovieDTO(movieService.getMovieById(id)),HttpStatus.OK);
     }
