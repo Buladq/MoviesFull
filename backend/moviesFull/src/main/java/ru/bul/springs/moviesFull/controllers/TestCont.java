@@ -1,6 +1,8 @@
 package ru.bul.springs.moviesFull.controllers;
 
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/apik")
+@Hidden
 public class TestCont {
 
     private final MovieService movieService;

@@ -1,5 +1,6 @@
 package ru.bul.springs.moviesFull.DTO;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +11,7 @@ import ru.bul.springs.moviesFull.models.Review;
 
 import java.time.LocalDate;
 import java.util.List;
-
+@Schema(description = "фильм DTO образец")
 public class MovieDTO {
 
     private int id;
